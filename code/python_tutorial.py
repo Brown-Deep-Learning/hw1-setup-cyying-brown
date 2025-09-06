@@ -12,9 +12,9 @@ class Square:
     Returns:
         None
     """
-    def __init__(self):
-        pass
-
+    def __init__(self, name: str, length: int):
+        self.name = name
+        self.length = length
 
 class Multiplier:
     """
@@ -22,7 +22,10 @@ class Multiplier:
     Args:
         None
     """
-    def __call__(self):
+    
+    # __call__ allows you to just call the name of the class instance
+    # i.e. multer = Multipler() --> multer(5, 10)
+    def __call__(self, num1: int, num2: int):
         """
         Implement the __call__ method here
         Args:
@@ -32,10 +35,16 @@ class Multiplier:
         Returns:
             result (int): The result of the multiplication
         """
-        pass
-
-
-class LoggingTape:
+        return num1 * num2
+    
+class Logger:
+    """
+    Logger class to record the logs
+    """
+    # Define the logging_tape here
+    logging_tape: "LoggingTape | None" = None
+    
+class LoggingTape(Logger):
     """
     LoggingTape class to record the logs
     """
@@ -43,41 +52,33 @@ class LoggingTape:
         """
         Initialize variables
         """
-        self.logs = ...
+        self.logs = []
 
     def __enter__(self):
         """
         Called when entering the context
         """
-        pass
+        Logger.logging_tape = self
+        return self
 
     def __exit__(self, *args):
         """
         Called when exiting the context
         """
-        pass
+        Logger.logging_tape = None
 
     def add_to_log(self, new_log):
         """
         Add a new log to the logs
         """
-        pass
+        self.logs.append(new_log)
 
     def print_logs(self):
         """
         Print the logs
         """
         for log in self.logs: print(log)
-
-
-class Logger:
-    """
-    Logger class to record the logs
-    """
-    # Define the logging_tape here
-    logging_tape: LoggingTape | None = None
-
-
+    
 class Car(Logger):
     def travel(self, distance):
         self.logging_tape.add_to_log(f"Traveled Distance {distance}")
